@@ -6,11 +6,9 @@
 //  Copyright © 2018 Эльдар Дамиров. All rights reserved.
 //
 
-#ifndef BinaryTree_h
-#define BinaryTree_h
 
 
-#endif /* BinaryTree_h */
+#define FAST 0
 
 
 enum directions
@@ -40,8 +38,6 @@ template <typename typeOfData> class BinaryTree
     public:
         BinaryTree()
             {
-            root = nullptr;
-            
             init();
             }
             
@@ -51,6 +47,19 @@ template <typename typeOfData> class BinaryTree
             }
         
         
+        #ifdef FAST
+        node <typeOfData> *currentNode = nullptr;
+        #endif
+        
+        typeOfData getCurrentNodeValue()
+            {
+            return currentNode->value;
+            }
+            
+        void setCurrentNodeValue ( typeOfData newValue )
+            {
+            currentNode->value = newValue;
+            }
         
         //------------------------------------------------------------------------------------
         
@@ -81,9 +90,10 @@ template <typename typeOfData> class BinaryTree
                 }
             else
                 {
+                
                 if ( currentNode->upwards != nullptr )
                     {
-                    currentNode = currentNode->right;
+                    currentNode = currentNode->upwards;
                     }
                 }
             
@@ -145,16 +155,27 @@ template <typename typeOfData> class BinaryTree
             
         //------------------------------------------------------------------------------------
         
+        
+        node <typeOfData>* getCurrentNode()
+            {
+            return currentNode;
+            }
             
-  
+        //------------------------------------------------------------------------------------
+            
+
     
     private:
         node <typeOfData> *root = nullptr;
-        node <typeOfData> *currentNode = nullptr;
         
+        #ifndef FAST
+        node <typeOfData> *currentNode = nullptr;
+        #endif
     
         void init()  
             {
+            root = new node <typeOfData>;
+            
             currentNode = root;
             }
     
