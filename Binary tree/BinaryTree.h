@@ -20,6 +20,8 @@ enum directions
     };
 
 
+//------------------------------------------------------------------------------------
+
 template <typename typeOfData> struct node
     {
     typeOfData value = NULL;
@@ -29,7 +31,8 @@ template <typename typeOfData> struct node
     node <typeOfData> *upwards = nullptr;
     };
     
-    
+
+//------------------------------------------------------------------------------------    
     
 template <typename typeOfData> class BinaryTree  
     {
@@ -50,6 +53,61 @@ template <typename typeOfData> class BinaryTree
             {
             currentNode = newNode;
             }
+            
+        void switchToNode ( int direction )
+            {
+            if ( direction == left )
+                {
+                if ( currentNode->left == nullptr )
+                    {
+                    createNode ( left );
+                    }
+                    
+                currentNode = currentNode->left;
+                }
+            else
+                {
+                if ( currentNode->right == nullptr )
+                    {
+                    createNode ( right );
+                    }
+                    
+                currentNode = currentNode->right;
+                }
+            
+            }
+            
+            
+            
+        void setValueOfCurrentNode ( typeOfData newValue )
+            {
+            currentNode->value = newValue;
+            }
+           
+            
+        void setValueOfLeftNode ( typeOfData newValue )
+            {
+            if ( currentNode->left == nullptr )
+                {
+                createNode ( left );
+                }
+            
+            currentNode->left->value = newValue;
+            }
+            
+        void setValueOfRightNode ( typeOfData newValue )
+            {
+            if ( currentNode->right == nullptr )
+                {
+                createNode ( right );
+                }
+            
+            currentNode->right->value = newValue;
+            }
+            
+            
+        
+            
   
     
     private:
@@ -63,7 +121,7 @@ template <typename typeOfData> class BinaryTree
             }
     
     
-        void createBranch ( int direction, typeOfData newValue = NULL )
+        void createNode ( int direction, typeOfData newValue = NULL )
             {
             node <typeOfData> *newNode = new node <typeOfData>;
             
@@ -79,11 +137,13 @@ template <typename typeOfData> class BinaryTree
                 currentNode->right = newNode;
                 }
             
-            switchToNode ( newNode );
+//            switchToNode ( newNode );
             }
             
   
   
     };
+    
+//------------------------------------------------------------------------------------
 
 
