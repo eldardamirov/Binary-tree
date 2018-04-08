@@ -13,6 +13,12 @@
 #endif /* BinaryTree_h */
 
 
+enum directions
+    {
+    left = 0, 
+    right = 1
+    };
+
 
 template <typename typeOfData> struct node
     {
@@ -39,6 +45,11 @@ template <typename typeOfData> class BinaryTree
             {
             
             }
+            
+        void switchToNode ( node <typeOfData>* newNode )
+            {
+            currentNode = newNode;
+            }
   
     
     private:
@@ -52,21 +63,25 @@ template <typename typeOfData> class BinaryTree
             }
     
     
-        void createLeftBranch()
+        void createBranch ( int direction, typeOfData newValue = NULL )
             {
             node <typeOfData> *newNode = new node <typeOfData>;
             
+            newNode->upwards = currentNode;
+            newNode->value = newValue;
             
+            if ( direction == left )
+                {
+                currentNode->left = newNode;
+                }
+            else
+                {
+                currentNode->right = newNode;
+                }
+            
+            switchToNode ( newNode );
             }
             
-            
-        void createRightBranch()
-            {
-            node <typeOfData> *newNode = new node <typeOfData>;
-            
-            
-            }
-    
   
   
     };
